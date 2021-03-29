@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+struct complex {
+    float real,imag;
+    complex (float a=0, float b=0) : real(a), imag(b){}
+    void Mostrar(){
+        cout << real << "+" << imag <<"i" << endl;
+    }
+};
+
+complex operator+(complex x, complex y){
+    complex z;
+    z.real = x.real + y.real;
+    z.imag = x.imag + y.imag;
+    return z;
+}
+
+int main()
+{
+    complex a(5,3), b(3,1.2);
+    a.Mostrar();
+    b.Mostrar();
+    (a + b).Mostrar();
+
+}
+

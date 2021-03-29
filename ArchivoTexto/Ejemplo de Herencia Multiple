@@ -1,0 +1,51 @@
+#include <iostream>
+
+using namespace std;
+
+class ClaseA {
+
+public:
+
+    ClaseA(): datoA(10){cout << "Constructor de A" << endl;}
+    ClaseA(int a): datoA(a){cout << "Constructor de A" << endl;}
+    int LeerA() const { return datoA; }
+    ~ClaseA(){ cout << "Destructor de A" << endl; }
+
+private:
+
+    int datoA;
+
+};
+
+class ClaseB: public ClaseA {
+
+public:
+
+    ClaseB(): datoB(20){ cout << "Constructor de B" << endl; }
+    ClaseB(int a, int b): ClaseA(a) ,datoB(b){ cout << "Constructor de B" << endl; }
+    int LeerB() const { return datoB; }
+    ~ClaseB() { cout << "Destructor de B" << endl; }
+
+private:
+
+    int datoB;
+
+};
+
+class ClaseC: public ClaseB {
+
+public:
+    ClaseC(int va, int vb) : ClaseB(va, vb) { cout << "Contructor de C" << endl; }
+    int LeerValorA() const { return ClaseA::LeerA(); }
+    int LeerValorB() const { return ClaseB::LeerB(); }
+    ~ClaseC(){ cout << "Destructor de C" << endl; };
+};
+
+
+int main(){
+    ClaseC objeto(12,14);
+    cout << objeto.LeerValorA() << ","
+         << objeto.LeerValorB()
+         << endl;
+    return 0;
+}

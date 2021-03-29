@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+
+class Pareja {
+
+    double a,b;
+
+public:
+
+    Pareja(): a(0), b(0){}
+
+    Pareja (const int a, const int b){
+        this->a = a;
+        this->b = b;
+    }
+
+    Pareja (const Pareja &p){
+        a = p.a;
+        b = p.b;
+    }
+
+    Pareja& operator +(const Pareja &p);
+
+    Pareja& operator -(const Pareja &p);
+
+    Pareja& operator *(const Pareja &p);
+
+    Pareja& operator /(const Pareja &p);
+
+    Pareja& operator =(const Pareja &p);
+
+    Pareja& operator ++();
+
+    bool operator ==(const Pareja &p) const;
+
+    friend ostream& operator << (ostream &o, const Pareja &p);
+
+    friend istream& operator >> (istream &i, Pareja &p);
+};
+
+Pareja& Pareja::operator +(const Pareja& p)
+{
+    a += p.a;
+    b += p.b;
+    return *this;
+}
+
+Pareja& Pareja::operator -(const Pareja &p){
+    a -= p.a;
+    b -= p.b;
+    return *this;
+}
+
+Pareja& Pareja::operator *(const Pareja &p){
+    a *= p.a;
+    b *= p.b;
+    return *this;
+}
+
+Pareja& Pareja::operator /(const Pareja &p){
+    if(p.a != 0) a /= p.a;
+    if(p.b != 0) b /= p.b;
+    return *this;
+}
+
+Pareja& Pareja::operator =(const Pareja &p){
+    if (this!=&p) {
+        if(p.a != 0) a = p.a;
+        if(p.b != 0) b = p.b;
+    }
+    return *this;
+}
+
+Pareja& Pareja::operator++(){
+    ++a;
+    ++b;
+    return *this;
+}
+
+bool Pareja::operator==(const Pareja &p) const{
+    return a == p.a && b == p.b;
+}
+
+ostream& operator << (ostream &o, const Pareja &p) {
+    o << "(" << p.a << "," << p.b << ")";
+    return o;
+}
+
+istream& operator >> (istream &i, Pareja &p) {
+    cout << "Introducir valores para (a,b) :";
+    i >> p.a >> p.b;
+    return i;
+}
+
+int main()
+{
+    Pareja A(50,75);
+    Pareja B(100,15);
+    Pareja C;
+
+    cout << "A = " << A << endl;
+    cout << "B = " << B << endl;
+    C = A * B;
+    cout << "A = " << A << endl;
+    cout << "C = " << C << endl;
+    cout << "................" << endl;
+
+    ++C;
+    cout << "C = " << C << endl;
+    cout << "A == B " << ( (A == B)? "Si": "No");
+    cin.get();
+    return 0;
+}

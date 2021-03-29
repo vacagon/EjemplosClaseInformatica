@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+class Tiempo {
+public:
+    Tiempo(int h=0, int m=0) : hora(h), minuto(m) {}
+    void Mostrar(){
+        cout << hora << ":" << minuto << endl;
+    }
+    Tiempo operator +(Tiempo h);
+    //Tiempo operator +(int mins);
+private:
+    int hora; int minuto;
+};
+
+Tiempo Tiempo::operator+(Tiempo h){
+    Tiempo temp;
+    temp.minuto = minuto + h.minuto;
+    temp.hora = hora + h.hora;
+    if (temp.minuto >=60){
+        temp.minuto -= 60;
+        temp.hora ++;
+    }
+    return temp;
+}
+
+/*Tiempo Tiempo::operator+(int mins){
+    Tiempo temp;
+    temp.minuto = minuto + mins;
+    temp.hora = hora +temp.minuto/60;
+    temp.minuto = temp.minuto%60;
+    return temp;
+
+}*/
+
+int main()
+{
+    Tiempo Ahora(12,24), T1(4,45);
+    T1 = Ahora + T1;
+    T1.Mostrar();
+    (Ahora+Tiempo(4,45)).Mostrar();
+    //(Ahora+45).Mostrar();
+    return 0;
+}

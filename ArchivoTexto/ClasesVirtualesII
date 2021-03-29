@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class figura {
+protected:
+    double x,y;
+
+public:
+    void set_dim(double i, double j = 0) {
+        x = i;
+        y = j;
+    }
+
+    virtual void mostrar_area() {
+        cout << "No hay calculo de area definido ";
+        cout << "para esta clase." << endl;
+    }
+
+};
+
+class triangulo: public figura {
+
+public:
+    void mostrar_area(){
+        cout << "Triangulo con altura "
+             << x << " y base " << y
+             << " tiene un area de "
+             << x*0.5*y << endl;
+    }
+};
+
+class rectangulo: public figura {
+
+public:
+    void mostrar_area(){
+        cout << "Rectangulo con dimensiones "
+             << x << " y " << y
+             << " tiene un area de "
+             << x*y << endl;
+    }
+};
+
+class circulo: public figura {
+
+public:
+    void mostrar_area(){
+        cout << "Círculo de radio "
+             << x
+             << " tiene un area de "
+             << 3.14*x*x << endl;
+    }
+};
+
+int main(){
+    figura *p;
+
+    triangulo t;
+    rectangulo r;
+    circulo c;
+
+    p = &t;
+    p->set_dim(10.0, 5.0);
+    p->mostrar_area();
+
+    p = &r;
+    p->set_dim(10.0, 5.0);
+    p->mostrar_area();
+
+    p = &c;
+    p->set_dim(9.0);
+    p->mostrar_area();
+
+    return 0;
+}

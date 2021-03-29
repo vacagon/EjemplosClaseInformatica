@@ -1,0 +1,89 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Persona {
+
+public:
+    Persona(const string& n) { nombre = n; }
+    Persona(const Persona &p) {
+        nombre = p.nombre;
+        cout << "Per: contructor copia." << endl;
+    }
+    virtual void VerNombre() {
+        cout << nombre << endl;
+    }
+    virtual Persona* Clonar() { return new Persona(*this); }
+    string LeerNombre() const { return nombre; }
+
+
+protected:
+    string nombre;
+
+};
+
+class Empleado: virtual public Persona {
+
+public:
+    Empleado(const string& n, float s): Persona(n), salario(s) {}
+    Empleado(const Empleado &e): Persona(e) {
+        cout << "Emp: constructor copia." << endl;
+    }
+    void VerNombre() {
+        cout << "Emp: " << nombre << endl;
+    }
+    virtual Persona* Clonar() { return new Empleado(*this); }
+    float LeerSalario() const { return salario; }
+    void ModificarSalario(float s) { salario = s; }
+
+protected:
+    float salario;
+
+};
+
+class Estudiante: virtual public Persona {
+
+public:
+    Estudiante(const string& n, float nota): Persona(n), nota(nota) {}
+    Estudiante(const Estudiante &e): Persona(e) {
+        cout << "Est: constructor copia." << endl;
+    }
+    void VerNombre() {
+        cout << "Est: " << nombre << endl;
+    }
+    virtual Persona* Clonar(){ return new Estudiante (*this); }
+    float LeerNota() const { return nota; }
+    void ModificarNota(float no) { nota = no; }
+
+protected:
+    float nota;
+
+};
+
+/*class Becario: public Empleado, public Estudiante {
+
+public:
+    Becario(const string& n, float s, float no): Persona(n), Empleado(n,s), Estudiante(n,no) {}
+
+};*/
+
+int main(){
+    Persona *Pepito = new Estudiante("Jose", 10);
+    Persona *Carlos = new Empleado("Carlos", 1000);
+    Persona *Gente[2];
+    Carlos->VerNombre();
+    Pepito->VerNombre();
+
+    Gente[0] = Carlos->Clonar();
+    Gente[0]->VerNombre();
+
+    Gente[1] = Pepito->Clonar();
+    Gente[1]->VerNombre();
+
+    delete Pepito;
+    delete Carlos;
+    delete Gente[0];
+    delete Gente[1];
+    return 0;
+}

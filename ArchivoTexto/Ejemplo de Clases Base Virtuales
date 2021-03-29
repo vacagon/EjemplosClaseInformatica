@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Persona {
+
+public:
+    Persona(const string n) { nombre = n; }
+    string LeerNombre() const { return nombre; }
+
+protected:
+    string nombre;
+
+};
+
+class Empleado: virtual public Persona {
+
+public:
+    Empleado(const string n, float s): Persona(n), salario(s) {}
+    float LeerSalario() const { return salario; }
+    void ModificarSalario(float s) { salario = s; }
+
+protected:
+    float salario;
+
+};
+
+class Estudiante: virtual public Persona {
+
+public:
+    Estudiante(const string n, float nota): Persona(n), nota(nota) {}
+    float LeerNota() const { return nota; }
+    void ModificarNota(float no) { nota = no; }
+
+protected:
+    float nota;
+
+};
+
+class Becario: public Empleado, public Estudiante {
+
+public:
+    Becario(const string n, float s, float no): Persona(n), Empleado(n,s), Estudiante(n,no) {}
+
+};
+
+int main(){
+    Becario Fulanito("Fulano",1000,7);
+    cout << "Nombre: " << Fulanito.LeerNombre() << endl
+         << "Salario: " << Fulanito.LeerSalario() << endl
+         << "Nota: " << Fulanito.LeerNota() << endl;
+    return 0;
+} 

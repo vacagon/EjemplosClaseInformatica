@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+class punto{
+public:
+    punto(float xx=0, float yy=0, float zz=0) : x(xx), y(yy), z(zz) {}
+    void Asignar(float xi, float yi, float zi){
+        x = xi;
+        y = yi;
+        z = zi;
+    }
+    void Asignar(punto p){
+        Asignar(p.x,p.y,p.z);
+    }
+    void Ver(){
+        cout << "(" << x << "," << y << "," << z << ")" << endl;
+    }
+private: float x, y, z;
+};
+
+int main()
+{
+    punto Z, P = punto(2,2);
+    P.Ver();
+    Z.Asignar(P);
+    Z.Ver();
+    Z.Asignar(12,35,12);
+    Z.Ver();
+    return 0;
+}

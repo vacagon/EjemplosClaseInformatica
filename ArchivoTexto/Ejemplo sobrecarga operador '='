@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class Cadena{
+public:
+    Cadena(const char *cad);
+    Cadena() { cadena = NULL;};
+    ~Cadena() {delete[] cadena;};
+    Cadena operator=(const Cadena &c);
+    void Mostrar(){cout << cadena << endl;};
+    void RellenarDeGuiones();
+private:
+    char *cadena;
+};
+
+Cadena::Cadena(const char *cad){
+    cadena = new char[strlen(cad)+1];
+    strcpy(cadena,cad);
+}
+
+Cadena & Cadena::operator = (const Cadena &c){
+    if (this != &c){
+        delete [] cadena;
+        if(c.cadena){
+            cadena = new char[strlen(c.cadena)+1];
+            strcpy(cadena,c.cadena);
+        } else {
+            cadena = NULL;
+        }
+    }
+    return *this;
+}
+
+void Cadena::RellenarDeGuiones(){
+    for (unsigned long i=0; i<strlen(cadena); i++)
+        cadena[i] = '-';
+}
+
+int main()
+{
+    Cadena C1("Hola Mundo"), C2("¿Que tal?");
+    C1.Mostrar();
+    C2.Mostrar();
+    C1 = C2;
+    C2.RellenarDeGuiones();
+    C1.Mostrar();
+    C2.Mostrar();
+    return 0;
+}
